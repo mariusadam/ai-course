@@ -1,0 +1,21 @@
+bool BestFS(elem, list){
+    found = false;
+    visited = Φ;
+    toVisit = {start}; //FIFO sorted list (priority queue)
+    while((toVisit != Φ) && (!found)){
+        if (toVisit == Φ)
+            return false
+        node = pop(toVisit);
+        visited = visited U {node};
+        if (node == elem)
+            found = true;
+        else
+            aux = Φ;
+        for all unvisited children of node do{
+            aux = aux U {child};
+        }
+        toVisit = toVisit U aux; //adding a node into the FIFO list based on its
+        // evaluation (best one in the front of list)
+    } //while
+    return found;
+}
