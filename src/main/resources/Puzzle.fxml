@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ubb.aicourse.lab3.PuzzleController">
+    <tabs>
+        <Tab fx:id="runTab" text="Run configuration">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Label layoutX="22.0" layoutY="7.0" text="Words list" />
+                        <Label layoutX="376.0" layoutY="7.0" text="Puzzle" />
+                        <TextArea fx:id="randomizedListTextArea" layoutX="22.0" layoutY="356.0" prefHeight="275.0" prefWidth="344.0" />
+                        <TextArea fx:id="wordsListTextArea" layoutX="22.0" layoutY="37.0" prefHeight="275.0" prefWidth="344.0" />
+                        <TextArea fx:id="puzzleTextArea" layoutX="376.0" layoutY="37.0" prefHeight="275.0" prefWidth="344.0" />
+                        <TextArea fx:id="solutionTextArea" layoutX="376.0" layoutY="356.0" prefHeight="275.0" prefWidth="344.0" />
+                        <Label layoutX="376.0" layoutY="320.0" text="Found solution words order" />
+                        <Label layoutX="22.0" layoutY="320.0" text="Randomized starting solution" />
+                  <VBox layoutX="734.0" layoutY="70.0" prefHeight="572.0" prefWidth="486.0" spacing="20.0">
+                     <children>
+                              <GridPane prefHeight="110.0" prefWidth="498.0">
+                                  <columnConstraints>
+                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="243.0" />
+                                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="353.0" minWidth="10.0" prefWidth="243.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                  <children>
+                                      <Button mnemonicParsing="false" onAction="#onLoadDataClick" prefHeight="26.0" prefWidth="91.0" text="Load" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                      <ComboBox fx:id="dataSetsCBox" prefWidth="150.0" GridPane.columnIndex="1" />
+                                      <Label text="Preload data set:" />
+                              <Button mnemonicParsing="false" onAction="#onRandomizeClick" text="Randomize words" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                  </children>
+                              </GridPane>
+                        <StackPane prefHeight="248.0" prefWidth="424.0">
+                           <children>
+                              <GridPane fx:id="acoParams">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Max iteration:s" />
+                                    <TextField fx:id="acoIterationsField" GridPane.columnIndex="1" />
+                                    <TextField fx:id="antsCountField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="decayFactorField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="heuristicCoeffField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="historyCoeffField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="pheromoneRewardField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label text="Ant count:" GridPane.rowIndex="1" />
+                                    <Label text="Pheromone decay factor" GridPane.rowIndex="2" />
+                                    <Label text="Heuristic Coefficient (beta):" GridPane.rowIndex="3" />
+                                    <Label text="Historic Coefficient (alpha):" GridPane.rowIndex="4" />
+                                    <Label text="Pheromone reward factor:" GridPane.rowIndex="5" />
+                                 </children>
+                              </GridPane>
+                              <GridPane fx:id="evolutiveParams" visible="false">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label prefHeight="0.0" prefWidth="139.0" text="Initial population size" />
+                                    <TextField fx:id="initialPopField" GridPane.columnIndex="1" />
+                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tournament size " GridPane.rowIndex="1" />
+                                            <TextField fx:id="tournamentSizeField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                            <Label text="Max execution time (millis)" GridPane.rowIndex="2" />
+                                            <TextField fx:id="maxTimeField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                            <Label text="Max iterations" GridPane.rowIndex="3" />
+                                            <TextField fx:id="maxIterationsField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                            <Label text="Mutation prob ( 0 &lt;= p &lt;= 1 )" GridPane.rowIndex="4" />
+                                            <TextField fx:id="mutationProbField" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                <GridPane.margin>
+                                                    <Insets />
+                                                </GridPane.margin>
+                                            </TextField>
+                                            <Label text="Mutation method" GridPane.rowIndex="5" />
+                                            <ComboBox fx:id="mutationCBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                            <Label text="Selection method" GridPane.rowIndex="6" />
+                                            <ComboBox fx:id="selectionCBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </StackPane>
+                        <GridPane prefHeight="80.0" prefWidth="462.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                                      <Label text="Algorithms to use" />
+                                      <Button mnemonicParsing="false" onAction="#onCancelClick" text="Cancel" GridPane.rowIndex="1" />
+                                      <ComboBox fx:id="algoCBox" onAction="#onAlgorithmChanged" prefWidth="150.0" GridPane.columnIndex="1" />
+                                      <Button mnemonicParsing="false" onAction="#onStartSearchClick" text="Start search" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Metrics">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <TableView fx:id="metricsTable" layoutX="424.0" layoutY="101.0" prefHeight="767.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn fx:id="algoColumn" prefWidth="173.0" text="Algorithm" />
+                                <TableColumn fx:id="popColumn" minWidth="0.0" prefWidth="135.0" text="Population size" />
+                                <TableColumn fx:id="foundItColumn" prefWidth="164.0" text="Found on iteration" />
+                                <TableColumn fx:id="foundAfterColumn" prefWidth="184.0" text="Foud after (sec)" />
+                                <TableColumn fx:id="totalTimeColumn" prefWidth="151.0" text="Total time (sec)" />
+                                <TableColumn fx:id="iterationsColumn" prefWidth="153.0" text="Total iterations" />
+                                <TableColumn fx:id="fitnessColumn" prefWidth="96.0" text="Fitness" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>

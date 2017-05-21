@@ -1,4 +1,4 @@
-package com.ubb.aicourse.search.local;
+package com.ubb.aicourse.lab3.search.local;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +41,36 @@ public class GaUtils {
         return inv;
     }
 
+    public static List<Integer> getInversionSequenceOf(List<Integer> perm) {
+        int[] arr = new int[perm.size()];
+        for(int i = 0; i < perm.size(); i++) {
+            arr[i] = perm.get(i);
+        }
+
+        int[] rez = getInversionSequenceOf(arr);
+        List<Integer> result = new ArrayList<>();
+        for (int aRez : rez) {
+            result.add(aRez);
+        }
+
+        return result;
+    }
+
+    public static List<Integer> getPermutationOf(List<Integer> inv) {
+        int[] arr = new int[inv.size()];
+        for(int i = 0; i < inv.size(); i++) {
+            arr[i] = inv.get(i);
+        }
+
+        int[] rez = getPermutationOf(arr);
+        List<Integer> result = new ArrayList<>();
+        for (int aRez : rez) {
+            result.add(aRez);
+        }
+
+        return result;
+    }
+
     /**
      * @param invSq array holding the inversion sequence
      * @return array holding the permutation
@@ -65,10 +95,22 @@ public class GaUtils {
 
     public static <T> StopFunction<T> simpleStopFn() {
         return (currentPopulation, bestSoFar, metrics) -> {
+            // if the chromosome has fitness one than that is the best we can find
+            if (bestSoFar.getFitness() == 0) {
+                return true;
+            }
+
             // continues until the time has not elapsed
+            if (metrics.getMaxExecutionTime() > 0L && metrics.getMaxExecutionTime() < metrics.getElapsedTime()) {
+                return true;
+            }
+
             // or the maximum number of iterations is not reached
-            return (metrics.getMaxExecutionTime() <= 0L || metrics.getElapsedTime() <= metrics.getMaxExecutionTime())
-                    && (metrics.getMaxIterations() <= 0L || (metrics.getCurrentIteration() >= metrics.getMaxIterations()));
+            if (metrics.getMaxIterations() > 0L && metrics.getMaxIterations() < metrics.getCurrentIteration()) {
+                return true;
+            }
+
+            return false;
         };
     }
 
@@ -88,6 +130,10 @@ public class GaUtils {
             }
             return chromosomes.get(chromosomes.size() - 1);
         };
+    }
+
+    public static <T> Function<List<Chromosome<T>>, Chromosome<T>> randomSelection() {
+        return chromosomes -> chromosomes.get(random.nextInt(chromosomes.size()));
     }
 
     public static Function<Chromosome<Integer>, Chromosome<Integer>> moduloRandomResetting(int individualLength) {
@@ -120,16 +166,41 @@ public class GaUtils {
 
     /**
      *
-     * @param puzzle the encoded puzzle, with ' ' on a free space and 'x' on a blocked space
+     * @param blankWordsLengths the encoded puzzle, with ' ' on a free space and 'x' on a blocked space
      * @return the puzzle fittness function
      */
-    public static Function<Chromosome<Integer>, Double> puzlleFitness(List<Character> puzzle) {
+    public static Function<Chromosome<Integer>, Double> puzzleFitness(List<Integer> blankWordsLengths, List<String> initialWords) {
         return c -> {
             if (c.isEvaluated()) {
                 return c.getFitness();
             }
+            double fitness = 0D;
 
-            return 0D;
+            List<Integer> representation = c.getRepresentation();
+            List<Integer> permutation = GaUtils.getPermutationOf(representation);
+            for(int i = 0; i < c.length(); i++) {
+                fitness += Math.abs(blankWordsLengths.get(i) - initialWords.get(permutation.get(i)).length());
+            }
+
+            return fitness;
+        };
+    }
+
+    public static <T> Function<List<Chromosome<T>>, Chromosome<T>> tournamentSelection(int tournamentSize) {
+        return chromosomes -> {
+            int tSize = tournamentSize;
+            Function<List<Chromosome<T>>, Chromosome<T>> selectRandom = randomSelection();
+            Chromosome<T>  best = selectRandom.apply(chromosomes), temp;
+            tSize--;
+            while (tSize > 0) {
+                temp = selectRandom.apply(chromosomes);
+                if (best.getFitness() > temp.getFitness()) {
+                    best = temp;
+                }
+                tSize--;
+            }
+
+            return best;
         };
     }
 }

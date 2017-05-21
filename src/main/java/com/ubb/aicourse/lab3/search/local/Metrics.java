@@ -1,4 +1,4 @@
-package com.ubb.aicourse.search.local;
+package com.ubb.aicourse.lab3.search.local;
 
 import java.util.Map;
 import java.util.Set;
@@ -62,10 +62,27 @@ public class Metrics {
         metricsMap.clear();
     }
 
+    public long getMaxExecutionTime() {
+        return getLong(Keys.MaxExecutionTime);
+    }
+
+    public long getElapsedTime() {
+        return getLong(Keys.ElapsedTime);
+    }
+
+    public long getCurrentIteration() {
+        return getLong(Keys.CurrentIteration);
+    }
+
+    public long getMaxIterations() {
+        return getLong(Keys.MaxIterations);
+    }
+
     public enum Keys {
         CurrentIteration,
         ElapsedTime,
         MaxIterations,
-        MaxExecutionTime
+        MaxExecutionTime,
+        BestChromosomeIteration, Exception, TotalExecutionTime, TotalIterations, BestChromosomeFitness, BestChromosomeTime
     }
 }

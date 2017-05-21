@@ -1,4 +1,4 @@
-package com.ubb.aicourse.search.local;
+package com.ubb.aicourse.lab3.search.local;
 
 /**
  * @author Marius Adam

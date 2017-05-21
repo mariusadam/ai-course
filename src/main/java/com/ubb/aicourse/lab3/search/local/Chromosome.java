@@ -1,4 +1,4 @@
-package com.ubb.aicourse.search.local;
+package com.ubb.aicourse.lab3.search.local;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +29,7 @@ public class Chromosome<T> {
         if (isEvaluated()) {
             throw new RuntimeException("Fitness already set.");
         }
+        evaluated = true;
         this.fitness = fitness;
     }
 

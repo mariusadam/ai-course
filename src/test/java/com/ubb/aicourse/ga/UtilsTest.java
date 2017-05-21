@@ -1,6 +1,6 @@
 package com.ubb.aicourse.ga;
 
-import com.ubb.aicourse.search.local.GaUtils;
+import com.ubb.aicourse.lab3.search.local.GaUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
